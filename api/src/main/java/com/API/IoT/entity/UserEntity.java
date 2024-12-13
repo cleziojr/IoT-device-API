@@ -30,8 +30,19 @@ public class UserEntity {
     private String password;
 
     @Column(name = "criado_em", nullable = false)
-    private Timestamp createdAt = Timestamp.valueOf(LocalDateTime.now());
+    private Timestamp createdAt;
 
     @Column(name = "atualizado_em", nullable = false)
-    private Timestamp updatedAt = Timestamp.valueOf(LocalDateTime.now());
+    private Timestamp updatedAt;
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = Timestamp.valueOf(LocalDateTime.now());
+        this.updatedAt = Timestamp.valueOf(LocalDateTime.now());
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = Timestamp.valueOf(LocalDateTime.now());
+    }
 }
