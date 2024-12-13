@@ -1,5 +1,8 @@
 package com.API.IoT.controller;
 
+import com.API.IoT.dto.mapper.UserMapper;
+import com.API.IoT.dto.user.UserCreateDTO;
+import com.API.IoT.dto.user.UserResponseDTO;
 import com.API.IoT.entity.UserEntity;
 import com.API.IoT.service.UserService;
 import jakarta.validation.Valid;
@@ -17,31 +20,32 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    public ResponseEntity<Void> save(@RequestBody @Valid UserEntity userEntity) {
-        System.out.println("Meu usuários: " + userEntity);
-        userService.save(userEntity);
+    public ResponseEntity<Void> save(@RequestBody @Valid UserCreateDTO userCreateDTO) {
+        userService.save(userCreateDTO);
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserEntity> findById(@PathVariable Long id) {
+    public ResponseEntity<UserResponseDTO> findById(@PathVariable Long id) {
         UserEntity user = userService.findById(id);
 
-        return ResponseEntity.status(HttpStatus.OK).body(user);
+        return ResponseEntity.status(HttpStatus.OK).body(UserMapper.toResponseDTO(user));
     }
 
     @GetMapping
-    public ResponseEntity<List<UserEntity>> findAll() {
-        List<UserEntity> user = userService.findAll();
+    public ResponseEntity<List<UserResponseDTO>> findAll() {
+        List<UserResponseDTO> user = UserMapper.toListResponseDTO(
+                userService.findAll()
+        );
 
         return ResponseEntity.status(HttpStatus.OK).body(user);
     }
 
     @GetMapping("/email/{email}")
-    public ResponseEntity<UserEntity> findByEmail(@PathVariable String email) {
+    public ResponseEntity<UserResponseDTO> findByEmail(@PathVariable String email) {
         UserEntity user = userService.findByEmail(email);
 
-        return ResponseEntity.status(HttpStatus.OK).body(user);
+        return ResponseEntity.status(HttpStatus.OK).body(UserMapper.toResponseDTO(user));
     }
 }

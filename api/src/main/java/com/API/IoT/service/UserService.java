@@ -1,5 +1,8 @@
 package com.API.IoT.service;
 
+import com.API.IoT.dto.mapper.UserMapper;
+import com.API.IoT.dto.user.UserCreateDTO;
+import com.API.IoT.dto.user.UserResponseDTO;
 import com.API.IoT.entity.UserEntity;
 import com.API.IoT.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +17,8 @@ public class UserService {
     private UserRepository userRepository;
 
     @Transactional
-    public void save(UserEntity user) {
-        System.out.println(user);
-        userRepository.save(user);
+    public void save(UserCreateDTO userCreateDTO) {
+        userRepository.save(UserMapper.toUser(userCreateDTO));
     }
 
     @Transactional(readOnly = true)
