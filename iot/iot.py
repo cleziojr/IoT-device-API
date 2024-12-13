@@ -55,4 +55,4 @@ def send_sensor_data():
 if __name__ == "__main__":
     while True:
         send_sensor_data()
-        sleep(10)
+        sleep(INTERVAL)
