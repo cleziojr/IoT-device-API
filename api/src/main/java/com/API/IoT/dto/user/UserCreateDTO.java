@@ -16,7 +16,7 @@ public class UserCreateDTO {
     @NotBlank
     private String name;
     @NotBlank
-    @Email(message = "formate de ee-mail inválido")
+    @Email(message = "formato de e-mail inválido")
     private String email;
     @NotBlank
     @Size(min = 5)
