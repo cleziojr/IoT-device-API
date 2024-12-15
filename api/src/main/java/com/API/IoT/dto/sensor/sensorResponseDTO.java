@@ -15,4 +15,9 @@ import lombok.Setter;
 public class sensorResponseDTO {
     private long id;
     private Timestamp createdAt;
+    private float ph;
+    private int waterTemperature;
+    private int ambientTemperature;
+    private int humidity;
+    private float floatLevel;
 }
