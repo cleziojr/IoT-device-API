@@ -3,6 +3,7 @@ package com.API.IoT.dto.user;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,9 +16,11 @@ import lombok.Setter;
 public class UserCreateDTO {
     @NotBlank
     private String name;
+
     @NotBlank
     @Email(message = "formato de e-mail inválido")
     private String email;
+
     @NotBlank
     @Size(min = 5)
     private String password;
