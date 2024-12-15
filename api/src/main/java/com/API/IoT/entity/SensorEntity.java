@@ -24,31 +24,22 @@ public class SensorEntity {
     private float ph;
 
     @Column(name = "temperatura_agua", nullable = false)
-    private int water_temperature;
+    private int waterTemperature;
 
     @Column(name = "temperatura_ambiente", nullable = false)
-    private int ambient_temperature;
+    private int ambientTemperature;
 
     @Column(name = "umidade", nullable = false)
     private int humidity;
 
     @Column(name = "nivel_agua", nullable = false)
-    private float float_level;
+    private float floatLevel;
 
     @Column(name = "criado_em", nullable = false)
     private Timestamp createdAt;
 
-    @Column(name = "atualizado_em", nullable = false)
-    private Timestamp updatedAt;
-
     @PrePersist
     protected void onCreate() {
         this.createdAt = Timestamp.valueOf(LocalDateTime.now());
-        this.updatedAt = Timestamp.valueOf(LocalDateTime.now());
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        this.updatedAt = Timestamp.valueOf(LocalDateTime.now());
     }
 }
