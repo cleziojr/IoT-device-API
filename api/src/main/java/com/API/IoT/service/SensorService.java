@@ -1,6 +1,6 @@
 package com.API.IoT.service;
 
-import com.API.IoT.dto.mapper.UserMapper;
+import com.API.IoT.dto.mapper.SensorMapper;
 import com.API.IoT.dto.user.SensorCreateDTO;
 import com.API.IoT.dto.user.SensorResponseDTO;
 import com.API.IoT.entity.SensorEntity;
