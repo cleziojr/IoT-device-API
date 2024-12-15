@@ -1,5 +1,7 @@
 package com.API.IoT.entity;
 
+import com.API.IoT.entity.UserEntity;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,8 +22,9 @@ public class SystemEntity {
     @Column(name = "id")
     private Long id;
 
+    @ManyToOne
     @Column(name = "user_id", nullable = false)
-    private Long userId;
+    private UserEntity userId;
 
     @Column(name = "status", nullable = false)
     private int status;
