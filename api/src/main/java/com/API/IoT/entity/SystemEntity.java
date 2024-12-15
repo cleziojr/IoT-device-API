@@ -21,7 +21,7 @@ public class SystemEntity {
     private Long id;
 
     @Column(name = "user_id", nullable = false)
-    private String userId;
+    private Long userId;
 
     @Column(name = "status", nullable = false)
     private int status;
