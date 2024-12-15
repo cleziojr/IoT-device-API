@@ -16,7 +16,7 @@ public class SensorMapper {
         return modelMapper.map(sensorEntity, SensorResponseDTO.class);
     }
 
-    public static SensorEntity toSensor(SensorCreateDTO sensorCreateDTO) {
+    public static SensorEntity toSensorEntity(SensorCreateDTO sensorCreateDTO) {
         PropertyMap<SensorCreateDTO, SensorEntity> propertyMap = new PropertyMap<>() {
             @Override
             protected void configure() {
