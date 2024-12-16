@@ -2,7 +2,6 @@ package com.API.IoT.service;
 
 import com.API.IoT.dto.mapper.UserMapper;
 import com.API.IoT.dto.user.UserCreateDTO;
-import com.API.IoT.dto.user.UserResponseDTO;
 import com.API.IoT.entity.UserEntity;
 import com.API.IoT.exception.EntityNotFoundException;
 import com.API.IoT.repository.UserRepository;

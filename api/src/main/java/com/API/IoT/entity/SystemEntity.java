@@ -1,7 +1,5 @@
 package com.API.IoT.entity;
 
-import com.API.IoT.entity.UserEntity;
-
 import jakarta.persistence.*;
 import lombok.*;
 

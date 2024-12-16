@@ -1,8 +1,7 @@
 package com.API.IoT.service;
 
 import com.API.IoT.dto.mapper.SensorMapper;
-import com.API.IoT.dto.sensor.sensorCreateDTO;
-import com.API.IoT.dto.sensor.sensorResponseDTO;
+import com.API.IoT.dto.sensor.SensorCreateDTO;
 import com.API.IoT.entity.SensorEntity;
 import com.API.IoT.exception.EntityNotFoundException;
 import com.API.IoT.repository.SensorRepository;
@@ -18,7 +17,7 @@ public class SensorService {
     private SensorRepository sensorRepository;
 
     @Transactional
-    public void save(sensorCreateDTO sensorCreateDTO) {
+    public void save(SensorCreateDTO sensorCreateDTO) {
         SensorEntity sensorEntity = SensorMapper.toSensorEntity(sensorCreateDTO);
         sensorRepository.save(sensorEntity);
     }

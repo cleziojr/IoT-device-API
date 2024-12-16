@@ -34,7 +34,7 @@ public class SensorController {
     }
 
     @GetMapping
-    public ResponseEntity<List<UserResponseDTO>> findAll() {
+    public ResponseEntity<List<SensorResponseDTO>> findAll() {
         List<SensorResponseDTO> sensors = SensorMapper.toListResponseDTO(
                 sensorService.findAll()
         );
