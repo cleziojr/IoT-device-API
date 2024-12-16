@@ -41,37 +41,4 @@ public class SensorController {
 
         return ResponseEntity.status(HttpStatus.OK).body(sensors);
     }
-
-    @GetMapping("/filter")
-    public ResponseEntity<List<SensorResponseDTO>> findByFilter(
-        @RequestParam(required = false) Float ph,
-        @RequestParam(required = false) Integer waterTemperature,
-        @RequestParam(required = false) Integer ambientTemperature,
-        @RequestParam(required = false) Integer humidity,
-        @RequestParam(required = false) Float floatLevel) {
-    
-        List<SensorEntity> sensors = sensorService.findByFilter(ph, waterTemperature, ambientTemperature, humidity, floatLevel);
-    
-        List<SensorResponseDTO> sensorResponseDTOs = SensorMapper.toListResponseDTO(sensors);
-        return ResponseEntity.status(HttpStatus.OK).body(sensorResponseDTOs);
-    }
-
-    @GetMapping("/count")
-    public ResponseEntity<Long> countSensors() {
-        long count = sensorService.count();
-        return ResponseEntity.status(HttpStatus.OK).body(count);
-    }
-
-    @PatchMapping("/{id}")
-    public ResponseEntity<Void> partialUpdate(@PathVariable Long id, @RequestBody @Valid SensorCreateDTO sensorCreateDTO) {
-        sensorService.partialUpdate(id, sensorCreateDTO);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        sensorService.delete(id);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-    }
-
 }
