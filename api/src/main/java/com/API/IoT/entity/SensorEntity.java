@@ -37,7 +37,7 @@ public class SensorEntity {
     private int humidity;
 
     @Column(name = "nivel_agua", nullable = false)
-    private float floatLevel;
+    private float waterLevel;
 
     @Column(name = "criado_em", nullable = false)
     private Timestamp createdAt;
@@ -47,12 +47,12 @@ public class SensorEntity {
         this.createdAt = Timestamp.valueOf(LocalDateTime.now());
     }
 
-    public SensorEntity(SystemEntity systemEntity, float ph, int waterTemperature, int ambientTemperature, int humidity, float floatLevel) {
+    public SensorEntity(SystemEntity systemEntity, float ph, int waterTemperature, int ambientTemperature, int humidity, float waterLevel) {
         this.system = systemEntity;
         this.ph = ph;
         this.waterTemperature = waterTemperature;
         this.ambientTemperature = ambientTemperature;
         this.humidity = humidity;
-        this.floatLevel = floatLevel;
+        this.waterLevel = waterLevel;
     }
 }

@@ -28,5 +28,5 @@ public class SensorCreateDTO {
     private int humidity;
 
     @NotNull
-    private float floatLevel;
+    private float waterLevel;
 }
