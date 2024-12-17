@@ -39,4 +39,9 @@ public class SensorService {
                 () -> new EntityNotFoundException("Sensor não existe")
         );
     }
+
+    @Transactional(readOnly = true)
+    public List<SensorEntity> findBySystemId(Long systemId) {
+        return sensorRepository.findBySystemId(systemId);
+    }
 }
