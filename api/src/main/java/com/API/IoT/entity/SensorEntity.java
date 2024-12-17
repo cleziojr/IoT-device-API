@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @ToString
 @EqualsAndHashCode
 @Entity
-@Table(name = "Sensor")
+@Table(name = "Sensores")
 public class SensorEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
