@@ -1,5 +1,5 @@
 package com.API.IoT.dto.system;
-import com.API.IoT.entity.UserEntity;
+import com.API.IoT.dto.user.UserResponseDTO;
 import com.API.IoT.enums.SystemStatusEnum;
 
 import lombok.AllArgsConstructor;
@@ -16,7 +16,7 @@ import java.time.LocalTime;
 @AllArgsConstructor
 public class SystemResponseDTO {
     private Long id;
-    private UserEntity user;
+    private UserResponseDTO user;
     private LocalTime  lightOn;
     private LocalTime  lightOff;
     private SystemStatusEnum status;
