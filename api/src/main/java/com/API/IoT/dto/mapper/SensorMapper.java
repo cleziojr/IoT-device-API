@@ -3,6 +3,8 @@ package com.API.IoT.dto.mapper;
 import com.API.IoT.dto.sensor.SensorCreateDTO;
 import com.API.IoT.dto.sensor.SensorResponseDTO;
 import com.API.IoT.entity.SensorEntity;
+import com.API.IoT.entity.SystemEntity;
+
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 
@@ -16,18 +18,23 @@ public class SensorMapper {
         return modelMapper.map(sensorEntity, SensorResponseDTO.class);
     }
 
-    public static SensorEntity toSensorEntity(SensorCreateDTO sensorCreateDTO) {
+    public static SensorEntity toSensor(SensorCreateDTO sensorCreateDTO, SystemEntity system) {
         PropertyMap<SensorCreateDTO, SensorEntity> propertyMap = new PropertyMap<>() {
             @Override
             protected void configure() {
                 map().setId(null);
+                map(source.getSystemId(), destination.getSystem());
             }
         };
 
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.addMappings(propertyMap);
 
-        return modelMapper.map(sensorCreateDTO, SensorEntity.class);
+        SensorEntity sensorEntity = modelMapper.map(sensorCreateDTO, SensorEntity.class);
+
+        sensorEntity.setSystem(system);
+
+        return sensorEntity;
     }
 
     public static List<SensorResponseDTO> toListResponseDTO(List<SensorEntity> sensors) {

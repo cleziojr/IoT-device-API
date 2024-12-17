@@ -1,6 +1,7 @@
 package com.API.IoT.dto.sensor;
 
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SensorCreateDTO {
+    @Positive
+    private Long systemId;
+
     @NotNull
     private float ph;
 

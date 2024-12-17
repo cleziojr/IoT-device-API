@@ -38,7 +38,7 @@ public class SystemService {
     @Transactional(readOnly = true)
     public SystemEntity findById(Long id) {
         return systemRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Usuário não existe")
+                () -> new EntityNotFoundException("Sistema não existe")
         );
     }
 }
