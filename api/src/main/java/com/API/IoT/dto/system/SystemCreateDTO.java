@@ -19,12 +19,9 @@ import lombok.Setter;
 public class SystemCreateDTO {
     @Positive
     private Long userId;
-
     private SystemStatusEnum status;
-
     @JsonFormat(pattern = "HH:mm")
     private LocalTime lightOn;
-
     @JsonFormat(pattern = "HH:mm") 
     private LocalTime lightOff;
 }
