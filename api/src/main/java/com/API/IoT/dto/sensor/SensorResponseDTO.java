@@ -2,6 +2,8 @@ package com.API.IoT.dto.sensor;
 
 import java.sql.Timestamp;
 
+import com.API.IoT.dto.system.SystemResponseDTO;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,6 +16,7 @@ import lombok.Setter;
 
 public class SensorResponseDTO {
     private long id;
+    private SystemResponseDTO system;
     private Timestamp createdAt;
     private float ph;
     private int waterTemperature;
