@@ -4,7 +4,6 @@ import com.API.IoT.dto.mapper.SensorMapper;
 import com.API.IoT.dto.sensor.SensorCreateDTO;
 import com.API.IoT.entity.SensorEntity;
 import com.API.IoT.entity.SystemEntity;
-import com.API.IoT.service.SystemService;
 import com.API.IoT.exception.EntityNotFoundException;
 import com.API.IoT.repository.SensorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
