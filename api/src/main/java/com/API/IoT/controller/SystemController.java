@@ -42,10 +42,9 @@ public class SystemController {
 
     @GetMapping
     public ResponseEntity<List<SystemResponseDTO>> findAll() {
-        List<SystemResponseDTO> system = SystemMapper.toListResponseDTO(
-                systemService.findAll()
-        );
+        List<SystemEntity> systemEntities = systemService.findAll();
+        List<SystemResponseDTO> systemResponse = SystemMapper.toListResponseDTO(systemEntities);
 
-        return ResponseEntity.status(HttpStatus.OK).body(system);
+        return ResponseEntity.status(HttpStatus.OK).body(systemResponse);
     }
 }
