@@ -47,4 +47,13 @@ public class SystemController {
 
         return ResponseEntity.status(HttpStatus.OK).body(systemResponse);
     }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<SystemResponseDTO>> findBySystemId(@PathVariable Long userId) {
+        List<SystemResponseDTO> systems = SystemMapper.toListResponseDTO(
+                systemService.findByUserId(userId)
+        );
+
+        return ResponseEntity.status(HttpStatus.OK).body(systems);
+    }
 }

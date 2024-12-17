@@ -46,7 +46,6 @@ public class SensorController {
 
     @GetMapping("/system/{systemId}")
     public ResponseEntity<List<SensorResponseDTO>> findBySystemId(@PathVariable Long systemId) {
-        System.out.println(systemId);
         List<SensorResponseDTO> sensors = SensorMapper.toListResponseDTO(
                 sensorService.findBySystemId(systemId)
         );

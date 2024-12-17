@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Timestamp;
+import java.time.LocalTime;
 
 @Getter
 @Setter
@@ -15,8 +16,9 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 public class SystemResponseDTO {
     private Long id;
-    private UserEntity userId;
-    private Timestamp  ligthOn;
-    private Timestamp  ligthOff;
+    private UserEntity user;
+    private LocalTime  lightOn;
+    private LocalTime  lightOff;
     private SystemStatusEnum status;
+    private Timestamp createdAt;
 }

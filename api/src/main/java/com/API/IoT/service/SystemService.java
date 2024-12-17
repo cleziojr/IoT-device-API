@@ -41,4 +41,9 @@ public class SystemService {
                 () -> new EntityNotFoundException("Sistema não existe")
         );
     }
+
+    @Transactional(readOnly = true)
+    public List<SystemEntity> findByUserId(Long systemId) {
+        return systemRepository.findByUserId(systemId);
+    }
 }
