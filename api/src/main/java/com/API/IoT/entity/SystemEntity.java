@@ -1,12 +1,13 @@
 package com.API.IoT.entity;
 
-import com.API.IoT.entity.UserEntity;
-
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+
+import com.API.IoT.enums.SystemStatusEnum;
 
 @Getter
 @Setter
@@ -15,7 +16,7 @@ import java.time.LocalDateTime;
 @ToString
 @EqualsAndHashCode
 @Entity
-@Table(name = "Sistema")
+@Table(name = "Sistemas")
 public class SystemEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,17 +24,18 @@ public class SystemEntity {
     private Long id;
 
     @ManyToOne
-    @Column(name = "user_id", nullable = false)
-    private UserEntity userId;
+    @JoinColumn(name = "id_usuario", nullable = false)
+    private UserEntity user;
 
     @Column(name = "status", nullable = false)
-    private int status;
+    @Enumerated(EnumType.STRING)
+    private SystemStatusEnum status;
 
     @Column(name = "ligar_luz", nullable = false)
-    private Timestamp ligthOn;
+    private LocalTime lightOn;
     
-    @Column(name = "deslifgar_luz", nullable = false)
-    private Timestamp ligthOff;
+    @Column(name = "desligar_luz", nullable = false)
+    private LocalTime lightOff;
 
     @Column(name = "criado_em", nullable = false)
     private Timestamp createdAt;
@@ -50,5 +52,12 @@ public class SystemEntity {
     @PreUpdate
     protected void onUpdate() {
         this.updatedAt = Timestamp.valueOf(LocalDateTime.now());
+    }
+
+    public SystemEntity(UserEntity user, SystemStatusEnum status, LocalTime lightOn, LocalTime lightOff) {
+        this.user = user;
+        this.status = status;
+        this.lightOn = lightOn;
+        this.lightOff = lightOff;
     }
 }

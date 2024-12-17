@@ -1,8 +1,8 @@
 package com.API.IoT.controller;
 
 import com.API.IoT.dto.mapper.SensorMapper;
-import com.API.IoT.dto.sensor.sensorCreateDTO;
-import com.API.IoT.dto.sensor.sensorResponseDTO;
+import com.API.IoT.dto.sensor.SensorCreateDTO;
+import com.API.IoT.dto.sensor.SensorResponseDTO;
 import com.API.IoT.entity.SensorEntity;
 import com.API.IoT.service.SensorService;
 
@@ -22,22 +22,22 @@ public class SensorController {
     private SensorService sensorService;
 
     @PostMapping
-    public ResponseEntity<Void> save(@RequestBody @Valid sensorCreateDTO sensorCreateDTO) {
+    public ResponseEntity<Void> save(@RequestBody @Valid SensorCreateDTO sensorCreateDTO) {
         sensorService.save(sensorCreateDTO);
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<sensorResponseDTO> findById(@PathVariable Long id) {
+    public ResponseEntity<SensorResponseDTO> findById(@PathVariable Long id) {
         SensorEntity sensor = sensorService.findById(id);
 
         return ResponseEntity.status(HttpStatus.OK).body(SensorMapper.toResponseDTO(sensor));
     }
 
     @GetMapping
-    public ResponseEntity<List<sensorResponseDTO>> findAll() {
-        List<sensorResponseDTO> sensors = SensorMapper.toListResponseDTO(
+    public ResponseEntity<List<SensorResponseDTO>> findAll() {
+        List<SensorResponseDTO> sensors = SensorMapper.toListResponseDTO(
                 sensorService.findAll()
         );
 

@@ -13,12 +13,16 @@ import java.time.LocalDateTime;
 @ToString
 @EqualsAndHashCode
 @Entity
-@Table(name = "Sensor")
+@Table(name = "Sensores")
 public class SensorEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "sis_id")
+    @Column(name = "id")
     private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "id_sistema", nullable = false)
+    private SystemEntity system;
 
     @Column(name = "ph", nullable = false)
     private float ph;
@@ -41,5 +45,14 @@ public class SensorEntity {
     @PrePersist
     protected void onCreate() {
         this.createdAt = Timestamp.valueOf(LocalDateTime.now());
+    }
+
+    public SensorEntity(SystemEntity systemEntity, float ph, int waterTemperature, int ambientTemperature, int humidity, float floatLevel) {
+        this.system = systemEntity;
+        this.ph = ph;
+        this.waterTemperature = waterTemperature;
+        this.ambientTemperature = ambientTemperature;
+        this.humidity = humidity;
+        this.floatLevel = floatLevel;
     }
 }

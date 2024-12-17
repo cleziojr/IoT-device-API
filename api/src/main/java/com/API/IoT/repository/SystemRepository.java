@@ -9,5 +9,5 @@ import java.util.Optional;
 
 @Repository
 public interface SystemRepository extends JpaRepository<SystemEntity, Long>  {
-    Optional<SystemEntity> findByUserId(String user_id);
+    Optional<SystemEntity> findByUserId(Long userId);
 }

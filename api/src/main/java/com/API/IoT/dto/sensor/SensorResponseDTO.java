@@ -12,7 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class sensorResponseDTO {
+public class SensorResponseDTO {
     private long id;
     private Timestamp createdAt;
     private float ph;

@@ -1,8 +1,9 @@
 package com.API.IoT.dto.mapper;
 
-import com.API.IoT.dto.system.SystemCreatedDTO;
+import com.API.IoT.dto.system.SystemCreateDTO;
 import com.API.IoT.dto.system.SystemResponseDTO;
 import com.API.IoT.entity.SystemEntity;
+import com.API.IoT.entity.UserEntity;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
@@ -17,18 +18,23 @@ public class SystemMapper {
         return modelMapper.map(systemEntity, SystemResponseDTO.class);
     }
 
-    public static SystemEntity toSystem(SystemCreatedDTO systemCreatedDTO) {
-        PropertyMap<SystemCreatedDTO, SystemEntity> propertyMap = new PropertyMap<>() {
+    public static SystemEntity toSystem(SystemCreateDTO systemCreatedDTO, UserEntity user) {
+        PropertyMap<SystemCreateDTO, SystemEntity> propertyMap = new PropertyMap<>() {
             @Override
             protected void configure() {
                 map().setId(null);
+                map(source.getUserId(), destination.getUser());
             }
         };
 
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.addMappings(propertyMap);
 
-        return modelMapper.map(systemCreatedDTO, SystemEntity.class);
+        SystemEntity systemEntity = modelMapper.map(systemCreatedDTO, SystemEntity.class);
+
+        systemEntity.setUser(user);
+
+        return systemEntity;
     }
 
     public static List<SystemResponseDTO> toListResponseDTO(List<SystemEntity> systems) {
