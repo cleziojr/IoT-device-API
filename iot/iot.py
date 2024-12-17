@@ -8,9 +8,11 @@ from datetime import datetime
 # Configuração do logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-# SERVER_URL = "http://localhost:8080/api/v1/"
-# SENSOR_URL = SERVER_URL + "sensor/"
-INTERVAL = 15  # Tempo em segundos entre envios
+SERVER_URL = "http://localhost:8080/api/v1/"
+SENSOR_URL = SERVER_URL + "sensors"
+SYSTEM_URL = SERVER_URL + "systems"
+USER_URL= SERVER_URL + "users"
+INTERVAL = 1  # Tempo em segundos entre envios
 
 # Valores iniciais para simulação
 current_ph = 7.0
@@ -18,6 +20,34 @@ current_water_temperature = 28
 current_ambient_temperature = 30
 current_humidity = 87.0
 current_water_level = 1.05
+
+def get_quantity_users():
+    try:
+        response = requests.get(USER_URL)
+
+        if response.status_code == 200:
+            users = response.json() 
+            return len(users)
+            logging.info(f"Quantidade de usuários obtida com sucesso: {quantity}")
+        else:
+            logging.error(f"Falha ao obter dados: {response.status_code}, {response.text}")
+
+    except requests.exceptions.RequestException as err:
+        logging.error(f"Erro de conexão: {err}")
+    
+def get_quantity_systems():
+    try:
+        response = requests.get(SYSTEM_URL)
+
+        if response.status_code == 200:
+            systems  = response.json() 
+            return len(systems)
+            logging.info(f"Quantidade de sistemas obtida com sucesso: {quantity}")
+        else:
+            logging.error(f"Falha ao obter dados: {response.status_code}, {response.text}")
+
+    except requests.exceptions.RequestException as err:
+        logging.error(f"Erro de conexão: {err}")
 
 def generate_realistic_value(current_value: float, min_value: float, max_value: float) -> float:
     # Gera um novo valor entre 90% e 110% do valor atual, respeitando os limites mínimo e máximo
@@ -51,7 +81,7 @@ def get_humidity() -> int:
 
 def get_water_level() -> float:
     global current_water_level
-    current_water_level = generate_realistic_value(current_water_level, 1.0, 1.2)
+    current_water_level = generate_realistic_value(current_water_level, 0.5, 0.8)
     logging.info(f"Nível de água gerado: {current_water_level} metros")
     return round(current_water_level, 2)
 
@@ -59,14 +89,24 @@ def get_timestamp() -> str:
     timezone = pytz.timezone("America/Fortaleza")
     return datetime.now(timezone).isoformat()
 
+def generate_system_id() -> int:
+   quantity_systems = get_quantity_systems()
+
+   return random.randint(1, quantity_systems)
+
+def generate_user_id() -> int:
+   quantity_users = get_quantity_users()
+
+   return random.randint(1, quantity_users)
+
 def build_sensor_data_json():
     json = {
+        "systemId": generate_system_id(),
         "ph": get_ph(),
-        "water_temperature": get_water_temperature(),
-        "ambient_temperature": get_ambient_temperature(),
+        "waterTemperature": get_water_temperature(),
+        "ambientTemperature": get_ambient_temperature(),
         "humidity": get_humidity(),
-        "water_level": get_water_level(),
-        "timestamp": get_timestamp()
+        "waterLevel": get_water_level(),
     }
     
     logging.info(f"Dados do sensor preparados para envio: {json}")
@@ -77,7 +117,7 @@ def send_sensor_data():
     try:
         response = requests.post(SENSOR_URL, json=build_sensor_data_json())
         
-        if response.status_code == 200:
+        if response.status_code == 201:
             logging.info("Dados enviados com sucesso")
         else:
             logging.error(f"Falha ao enviar dados: {response.status_code}, {response.text}")
@@ -87,18 +127,7 @@ def send_sensor_data():
 
 if __name__ == "__main__":
     while True:
-        # Gera e imprime os valores dos sensores
-        print("Valor de pH: " + str(get_ph()))
-        print("Valor da temperatura da água: " + str(get_water_temperature()))
-        print("Valor do nível da água: " + str(get_water_level()))
-        print("Valor da temperatura ambiente: " + str(get_ambient_temperature()))
-        print("Valor da umidade: " + str(get_humidity()))
-        print("\n\n\n")
-
-        #Chama a função para fazer as requisições
         send_sensor_data()
-        print(str(send_sensor_data())) # Log
 
-        # Aguarda o intervalo definido antes de gerar novos valores
         sleep(INTERVAL)
 
